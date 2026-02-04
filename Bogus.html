@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Invite</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+
+        :root {
+            --bg-color: #ffdae0;
+            --primary-pink: #ff8fa3;
+            --secondary-pink: #ff4d6d;
+            --text-dark: #5c2d36;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Quicksand', sans-serif;
+            color: var(--text-dark);
+            margin: 0;
+            padding: 40px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Content Sections (No White Boxes) */
+        .section-container {
+            max-width: 500px; 
+            width: 100%; 
+            text-align: center; 
+            margin-bottom: 60px;
+            box-sizing: border-box;
+        }
+
+        /* White Content Boxes */
+        .white-box {
+            max-width: 500px; width: 100%; background: white; border-radius: 30px;
+            padding: 30px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            text-align: center; margin-bottom: 25px;
+            box-sizing: border-box;
+        }
+
+        .section-header { font-family: 'Fredoka One', cursive; font-size: 1.6rem; color: var(--secondary-pink); margin: 20px 0; }
+        .date-item { text-align: left; background: #fffafa; margin: 10px 0; padding: 12px; border-radius: 15px; border-left: 5px solid var(--primary-pink); font-size: 0.85rem; }
+
+
+        h1 { font-family: 'Fredoka One', cursive; color: var(--secondary-pink); font-size: 2.8rem; margin: 10px 0; }
+        .section-header { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--secondary-pink); margin: 20px 0; }
+
+        /* Buttons */
+        .btn-container { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 120px; }
+        .btn-yes {
+            background-color: var(--secondary-pink); color: white; border: none; padding: 12px 35px; border-radius: 25px;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; z-index: 100;
+        }
+        .btn-no { background-color: #f3f4f6; color: #374151; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; z-index: 100;}
+
+        /* Success & Too Late */
+        #success-content { display: none; text-align: center; width: 100%; max-width: 500px;}
+        .cat-gif { width: 140px; height: 140px; background: white; border-radius: 15px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        #too-late-card { display: none; background: rgba(255, 255, 255, 0.4); border: 2px dashed var(--secondary-pink); padding: 25px; border-radius: 25px; text-align: left; margin-top: 20px; }
+
+        /* Date Ideas List */
+        .date-list { text-align: left; margin: 20px 0; }
+        .date-item { 
+            background: rgba(255, 255, 255, 0.5); 
+            margin: 10px 0; 
+            padding: 15px; 
+            border-radius: 18px; 
+            font-size: 0.9rem; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+
+        /* --- ENVELOPE DESIGN --- */
+        .envelope-wrapper {
+            position: relative;
+            width: 200px;
+            height: 130px;
+            margin: 60px auto 20px auto;
+            cursor: pointer;
+            background: #ff7a91; 
+            border-radius: 0 0 10px 10px;
+        }
+
+        .envelope {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 100px solid var(--primary-pink);
+            border-right: 100px solid var(--primary-pink);
+            border-top: 65px solid transparent;
+            border-bottom: 65px solid var(--primary-pink);
+            border-radius: 0 0 10px 10px;
+            z-index: 10;
+        }
+
+        .flap {
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 100px solid transparent;
+            border-right: 100px solid transparent;
+            border-top: 80px solid var(--secondary-pink);
+            transform-origin: top;
+            transition: transform 0.4s ease;
+            z-index: 12;
+        }
+
+        #letter {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            width: 180px;
+            height: 110px;
+            background: white;
+            padding: 15px;
+            box-sizing: border-box;
+            font-style: italic;
+            color: var(--secondary-pink);
+            font-weight: bold;
+            font-size: 0.85rem;
+            transition: transform 0.5s ease;
+            z-index: 5;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .envelope-wrapper.open .flap {
+            transform: rotateX(180deg);
+            z-index: 1; 
+        }
+
+        .envelope-wrapper.open #letter {
+            transform: translateY(-80px);
+            z-index: 11; 
+        }
+
+        .envelope-heart {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.5rem;
+            z-index: 13;
+            transition: opacity 0.3s;
+        }
+        .envelope-wrapper.open .envelope-heart { opacity: 0; }
+
+        /* Memories Grid */
+        .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
+        .memory-card { 
+            background: rgba(255, 255, 255, 0.6); 
+            aspect-ratio: 1/1; 
+            border-radius: 25px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            cursor: pointer; 
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            transition: transform 0.2s;
+        }
+        .memory-card img { width: 100%; height: 70%; object-fit: cover; border-radius: 15px; display: none; }
+        .memory-cap { display: none; font-size: 0.65rem; font-weight: bold; margin-top: 8px; line-height: 1.2; }
+
+        /* Soundtrack */
+        .spotify-embed { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 12px; height: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+
+        /* Container for the section */
+        .reasons-container {
+            max-width: 550px;
+            width: 100%;
+            margin: 40px auto;
+            text-align: center;
+        }
+
+        /* 2-column grid matching the video */
+        .reasons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            padding: 10px;
+        }
+
+        /* Individual card styling */
+        .reason-card {
+            /* Gradient matching the video screenshot */
+            background: linear-gradient(135deg, #ff8da1 0%, #ffb3ce 100%);
+            color: white;
+            padding: 20px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-align: left;
+            line-height: 1.4;
+            box-shadow: 0 4px 15px rgba(255, 141, 161, 0.3);
+            display: flex;
+            align-items: center;
+            min-height: 80px; /* Ensures uniform card size */
+        }
+
+        /* Optional: Subtle emoji styling inside cards */
+        .reason-card span {
+            margin-left: 5px;
+        }
+        /* Secret Surprises */
+        .surprise-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
+        .surprise-btn { 
+            background: #ffcc33; 
+            color: #5c2d36; 
+            border: none; 
+            padding: 12px 25px; 
+            border-radius: 50px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            font-size: 0.9rem;
+            box-shadow: 0 4px 0px #e6b82e;
+            transition: all 0.1s;
+        }
+        .surprise-btn:active { transform: translateY(3px); box-shadow: 0 1px 0px #e6b82e; }
+    </style>
+</head>
+<body>
+
+    <div class="section-container" id="initial-screen">
+        <h1>Will you be my Valentine? 💕</h1>
+        <p>Official invite from your long-distance boyfriend</p>
+        <div class="btn-container">
+            <button class="btn-yes" id="yesBtn" onclick="showLove()">YES! 💖</button>
+            <button class="btn-no" id="noBtn">No :(</button>
+        </div>
+    </div>
+
+    <div id="success-content" class="section-container">
+        <h2 class="section-header">Good choice babu 🥹</h2>
+        <p style="font-size: 0.85rem; margin-top: -10px;">You just unlocked unlimited hugs, kisses, and cuddles<br>(redeemable very soon I promise)</p>
+        
+        <div style="display:flex; justify-content:center; gap:15px; margin: 25px 0;">
+            <img src="https://media.tenor.com/7S_m9yvX8v8AAAAM/peach-goma.gif" class="cat-gif">
+            <img src="https://media.tenor.com/9v1hP_mY6mEAAAAM/mochi-peach-cat-mochi-cat.gif" class="cat-gif">
+        </div>
+        
+        <p style="font-weight: bold; color: var(--secondary-pink); font-size: 1.1rem;">Now you're stuck with me forever ∞</p>
+        
+        <div id="change-mind-container" style="margin-top: 30px;">
+            <p style="font-size: 0.8rem; color: #888;">Wait... do you want to change your mind?</p>
+            <button class="btn-no" id="noBtn2" onclick="handleActuallyNo()">Actually... No 😈</button>
+        </div>
+
+        <div id="too-late-card">
+            <h3 style="text-align:center; color:var(--secondary-pink); margin-top: 0;">TOO LATE!</h3>
+            <p>You already said YES, which means:</p>
+            <p>❌ No take-backs allowed</p>
+            <p>❌ You're legally mine now (I checked)</p>
+            <p>❌ Every "no" from now on = 10 extra kisses when we meet</p>
+            <p>✅ You're stuck with your gandu boyfriend FOREVER ❤️</p>
+            <p style="text-align:center; font-weight:bold; margin-top: 20px;">Deal with it 💅✨</p>
+        </div>
+    </div>
+
+    <div class="white-box">
+    <div class="section-container">
+        <div class="section-header">Our Virtual Date Ideas 📱</div>
+        <div class="date-list">
+            <div class="date-item">🎬 Netflix party + video call (I'll let you pick... maybe)</div>
+            <div class="date-item">🍕 Order the same food & judge each other's eating habits</div>
+            <div class="date-item">🌙 Late night talks that somehow turn into sleeping thing</div>
+            <div class="date-item">🎵 Playlist exchange & argue about music taste (you're wrong btw)</div>
+            <div class="date-item">🤳 Send me your selfies so I can simp shamelessly 🤩</div>
+            <div class="date-item">🎮 Play games together & watch you absolutely destroy me</div>
+        </div>
+    </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">A Secret Note For You 💌</div>
+        <p style="font-size: 0.8rem; color: #888;">Click the envelope to open it...</p>
+        <div class="envelope-wrapper" id="envWrapper" onclick="toggleEnvelope()">
+            <div class="flap"></div>
+            <div class="envelope"></div>
+            <div id="letter">"Distance is just a number. Every day I fall a little more in love with you. ❤️"</div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">Our Favorite Memories 📸</div>
+        <p style="font-size: 0.8rem; margin-bottom: 20px;">Click to reveal each memory 💕</p>
+        <div class="memory-grid">
+            <div class="memory-card" onclick="revealMem(this)">
+                <span class="gift" style="font-size: 2.5rem;">🎁</span>
+                <img src="YOUR_IMAGE_1.jpg">
+                <div class="memory-cap">Catching you in your natural habitat: being absolutely adorable ✨</div>
+            </div>
+            <div class="memory-card" onclick="revealMem(this)">
+                <span class="gift" style="font-size: 2.5rem;">🎁</span>
+                <img src="YOUR_IMAGE_2.jpg">
+                <div class="memory-cap">That smile >>> everything else in the world</div>
+            </div>
+            <div class="memory-card" onclick="revealMem(this)">
+                <span class="gift" style="font-size: 2.5rem;">🎁</span>
+                <img src="YOUR_IMAGE_3.jpg">
+                <div class="memory-cap">When you're taking a cute pic but food is life 🍕</div>
+            </div>
+            <div class="memory-card" onclick="revealMem(this)">
+                <span class="gift" style="font-size: 2.5rem;">🎁</span>
+                <img src="YOUR_IMAGE_4.jpg">
+                <div class="memory-cap">Just you being you - my favorite version of perfect ❤️</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">Our Soundtrack 🎵</div>
+        <p style="font-size: 0.8rem; font-style: italic; margin-bottom: 20px; color: #888;">Songs that make me think of you (can't listen to these without smiling like an idiot) ✨</p>
+        <div class="spotify-embed"><iframe src="https://open.spotify.com/embed/track/5uCax9HTNlzGybIStD3vDh?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>
+        <div class="spotify-embed"><iframe src="https://open.spotify.com/embed/track/2SST0vF6TCH9Rshv1YQ4S0?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">Things I Love About You ✨</div>
+        <div class="reasons-grid">
+            <div class="reason-card">Your smile literally makes my entire day (and my heart melts)</div>
+            <div class="reason-card">You're funnier than my entire instagram feed</div>
+            <div class="reason-card">Your voice > any song</div>
+            <div class="reason-card">You understand my we my terrible jokes</div>
+            <div class="reason-card">Your chaotic energy matches mine perfectly ✨</div>
+            <div class="reason-card">You make me want to be less of a gandu (that's true love)</div>
+            <div class="reason-card">You're beautiful and you don't even try (which is annoying honestly)</div>
+            <div class="reason-card">You're stuck with me now and there's no escape</div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div class="section-header">Secret Surprises 🎁</div>
+        <p style="font-size: 0.8rem; margin-bottom: 20px;">Click each button for a surprise message 😉</p>
+        <div class="surprise-container">
+            <button class="surprise-btn" onclick="alert('I\'m behaving... but only because you\'re not here to distract me 😇')">Surprise #1 🍭</button>
+            <button class="surprise-btn" onclick="alert('I miss you more than I miss being sane. 🫠')">Surprise #2 🌙</button>
+            <button class="surprise-btn" onclick="alert('You just won a free pass for 100 forehead kisses! 🎫')">Surprise #3 🔥</button>
+            <button class="surprise-btn" onclick="alert('I can\'t wait to hold your hand again. ❤️')">Surprise #4 💋</button>
+        </div>
+        
+        <div style="margin-top: 50px; font-size: 0.75rem; color: #888; font-style: italic;">
+            Made with love + mehnat + too much horniness by your gandu boyfriend ❤️<br>
+            P.S. I love you more than you love food. Yeah, I said it. 💅
+        </div>
+    </div>
+
+    <script>
+        let scale = 1;
+        let no2Tries = 0;
+
+        // No button logic
+        document.getElementById('noBtn').addEventListener('mouseover', function() {
+            scale += 0.5;
+            document.getElementById('yesBtn').style.transform = `scale(${scale})`;
+            this.style.position = 'fixed';
+            this.style.left = Math.random() * 80 + '%';
+            this.style.top = Math.random() * 80 + '%';
+        });
+
+        document.getElementById('noBtn2').addEventListener('mouseover', function() {
+            if (no2Tries < 4) {
+                this.style.position = 'fixed';
+                this.style.left = Math.random() * 80 + '%';
+                this.style.top = Math.random() * 80 + '%';
+                no2Tries++;
+            }
+        });
+
+        function showLove() {
+            document.getElementById('initial-screen').style.display = 'none';
+            document.getElementById('success-content').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleActuallyNo() {
+            if (no2Tries >= 4) {
+                document.getElementById('too-late-card').style.display = 'block';
+                document.getElementById('change-mind-container').style.display = 'none';
+            }
+        }
+
+        function toggleEnvelope() { document.getElementById('envWrapper').classList.toggle('open'); }
+
+        function revealMem(card) {
+            const gift = card.querySelector('.gift');
+            const img = card.querySelector('img');
+            const cap = card.querySelector('.memory-cap');
+            gift.style.display = 'none';
+            img.style.display = 'block';
+            cap.style.display = 'block';
+            card.style.background = 'white';
+        }
+    </script>
+</body>
+</html>
