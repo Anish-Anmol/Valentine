@@ -26,56 +26,31 @@
             overflow-x: hidden;
         }
 
-        /* Content Sections (No White Boxes) */
         .section-container {
-            max-width: 500px; 
-            width: 100%; 
-            text-align: center; 
+            max-width: 550px;
+            width: 100%;
+            text-align: center;
             margin-bottom: 60px;
-            box-sizing: border-box;
         }
-
-        /* White Content Boxes */
-        .white-box {
-            max-width: 500px; width: 100%; background: white; border-radius: 30px;
-            padding: 30px 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            text-align: center; margin-bottom: 25px;
-            box-sizing: border-box;
-        }
-
-        .section-header { font-family: 'Fredoka One', cursive; font-size: 1.6rem; color: var(--secondary-pink); margin: 20px 0; }
-        .date-item { text-align: left; background: #fffafa; margin: 10px 0; padding: 12px; border-radius: 15px; border-left: 5px solid var(--primary-pink); font-size: 0.85rem; }
-
 
         h1 { font-family: 'Fredoka One', cursive; color: var(--secondary-pink); font-size: 2.8rem; margin: 10px 0; }
         .section-header { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--secondary-pink); margin: 20px 0; }
 
-        /* Buttons */
-        .btn-container { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 120px; }
+        /* YES/NO BUTTONS LOGIC */
+        .btn-container { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 300px; }
         .btn-yes {
             background-color: var(--secondary-pink); color: white; border: none; padding: 12px 35px; border-radius: 25px;
-            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; z-index: 100;
+            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.2s ease-out; z-index: 100;
         }
-        .btn-no { background-color: #f3f4f6; color: #374151; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; z-index: 100;}
+        .btn-no { background-color: #f3f4f6; color: #374151; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; z-index: 101; transition: 0.1s; }
 
-        /* Success & Too Late */
-        #success-content { display: none; text-align: center; width: 100%; max-width: 500px;}
-        .cat-gif { width: 140px; height: 140px; background: white; border-radius: 15px; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* SUCCESS SCREEN & TOO LATE */
+        #success-content { display: none; }
+        .cat-gif { width: 140px; border-radius: 15px; background: white; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
         #too-late-card { display: none; background: rgba(255, 255, 255, 0.4); border: 2px dashed var(--secondary-pink); padding: 25px; border-radius: 25px; text-align: left; margin-top: 20px; }
 
-        /* Date Ideas List */
-        .date-list { text-align: left; margin: 20px 0; }
-        .date-item { 
-            background: rgba(255, 255, 255, 0.5); 
-            margin: 10px 0; 
-            padding: 15px; 
-            border-radius: 18px; 
-            font-size: 0.9rem; 
-            display: flex; 
-            align-items: center; 
-            gap: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
-        }
+        /* DATE IDEAS */
+        .date-item { background: rgba(255, 255, 255, 0.5); margin: 10px 0; padding: 15px; border-radius: 18px; font-size: 0.9rem; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
 
         /* --- ENVELOPE DESIGN --- */
         .envelope-wrapper {
@@ -157,78 +132,22 @@
         }
         .envelope-wrapper.open .envelope-heart { opacity: 0; }
 
-        /* Memories Grid */
+        /* MEMORY GIFT BOXES */
         .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .memory-card { 
-            background: rgba(255, 255, 255, 0.6); 
-            aspect-ratio: 1/1; 
-            border-radius: 25px; 
-            display: flex; 
-            flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer; 
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
-            transition: transform 0.2s;
-        }
+        .memory-card { background: rgba(255, 255, 255, 0.6); aspect-ratio: 1/1; border-radius: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
         .memory-card img { width: 100%; height: 70%; object-fit: cover; border-radius: 15px; display: none; }
         .memory-cap { display: none; font-size: 0.65rem; font-weight: bold; margin-top: 8px; line-height: 1.2; }
 
-        /* Soundtrack */
-        .spotify-embed { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 12px; height: 80px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+        /* SOUNDTRACK */
+        .spotify-embed { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 12px; height: 80px; }
 
-        /* Container for the section */
-        .reasons-container {
-            max-width: 550px;
-            width: 100%;
-            margin: 40px auto;
-            text-align: center;
-        }
+        /* THINGS I LOVE GRADIENT CARDS */
+        .reasons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .reason-card { background: linear-gradient(135deg, #ff8da1 0%, #ffb3ce 100%); color: white; padding: 18px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-align: left; line-height: 1.3; box-shadow: 0 4px 15px rgba(255, 141, 161, 0.2); }
 
-        /* 2-column grid matching the video */
-        .reasons-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            padding: 10px;
-        }
-
-        /* Individual card styling */
-        .reason-card {
-            /* Gradient matching the video screenshot */
-            background: linear-gradient(135deg, #ff8da1 0%, #ffb3ce 100%);
-            color: white;
-            padding: 20px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-align: left;
-            line-height: 1.4;
-            box-shadow: 0 4px 15px rgba(255, 141, 161, 0.3);
-            display: flex;
-            align-items: center;
-            min-height: 80px; /* Ensures uniform card size */
-        }
-
-        /* Optional: Subtle emoji styling inside cards */
-        .reason-card span {
-            margin-left: 5px;
-        }
-        /* Secret Surprises */
-        .surprise-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 20px; }
-        .surprise-btn { 
-            background: #ffcc33; 
-            color: #5c2d36; 
-            border: none; 
-            padding: 12px 25px; 
-            border-radius: 50px; 
-            font-weight: bold; 
-            cursor: pointer; 
-            font-size: 0.9rem;
-            box-shadow: 0 4px 0px #e6b82e;
-            transition: all 0.1s;
-        }
+        /* SECRET SURPRISE BUTTONS */
+        .surprise-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
+        .surprise-btn { background: #ffcc33; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0px #e6b82e; transition: 0.1s; }
         .surprise-btn:active { transform: translateY(3px); box-shadow: 0 1px 0px #e6b82e; }
     </style>
 </head>
@@ -239,49 +158,36 @@
         <p>Official invite from your long-distance boyfriend</p>
         <div class="btn-container">
             <button class="btn-yes" id="yesBtn" onclick="showLove()">YES! 💖</button>
-            <button class="btn-no" id="noBtn">No :(</button>
+            <button class="btn-no" id="noBtn">No</button>
         </div>
     </div>
 
     <div id="success-content" class="section-container">
         <h2 class="section-header">Good choice babu 🥹</h2>
-        <p style="font-size: 0.85rem; margin-top: -10px;">You just unlocked unlimited hugs, kisses, and cuddles<br>(redeemable very soon I promise)</p>
-        
+        <p style="font-size: 0.85rem;">You just unlocked unlimited hugs, kisses, and cuddles!</p>
         <div style="display:flex; justify-content:center; gap:15px; margin: 25px 0;">
             <img src="https://media.tenor.com/7S_m9yvX8v8AAAAM/peach-goma.gif" class="cat-gif">
             <img src="https://media.tenor.com/9v1hP_mY6mEAAAAM/mochi-peach-cat-mochi-cat.gif" class="cat-gif">
         </div>
-        
-        <p style="font-weight: bold; color: var(--secondary-pink); font-size: 1.1rem;">Now you're stuck with me forever ∞</p>
-        
-        <div id="change-mind-container" style="margin-top: 30px;">
+        <p style="font-weight: bold; color: var(--secondary-pink);">Now you're stuck with me forever ∞</p>
+        <div id="change-mind-container">
             <p style="font-size: 0.8rem; color: #888;">Wait... do you want to change your mind?</p>
             <button class="btn-no" id="noBtn2" onclick="handleActuallyNo()">Actually... No 😈</button>
         </div>
-
         <div id="too-late-card">
-            <h3 style="text-align:center; color:var(--secondary-pink); margin-top: 0;">TOO LATE!</h3>
-            <p>You already said YES, which means:</p>
+            <h3 style="text-align:center; color:var(--secondary-pink);">TOO LATE!</h3>
             <p>❌ No take-backs allowed</p>
-            <p>❌ You're legally mine now (I checked)</p>
-            <p>❌ Every "no" from now on = 10 extra kisses when we meet</p>
-            <p>✅ You're stuck with your gandu boyfriend FOREVER ❤️</p>
-            <p style="text-align:center; font-weight:bold; margin-top: 20px;">Deal with it 💅✨</p>
+            <p>❌ You're legally mine now</p>
+            <p>✅ Stuck with your gandu boyfriend FOREVER ❤️</p>
         </div>
     </div>
 
-    <div class="white-box">
     <div class="section-container">
         <div class="section-header">Our Virtual Date Ideas 📱</div>
-        <div class="date-list">
-            <div class="date-item">🎬 Netflix party + video call (I'll let you pick... maybe)</div>
-            <div class="date-item">🍕 Order the same food & judge each other's eating habits</div>
-            <div class="date-item">🌙 Late night talks that somehow turn into sleeping thing</div>
-            <div class="date-item">🎵 Playlist exchange & argue about music taste (you're wrong btw)</div>
-            <div class="date-item">🤳 Send me your selfies so I can simp shamelessly 🤩</div>
-            <div class="date-item">🎮 Play games together & watch you absolutely destroy me</div>
-        </div>
-    </div>
+        <div class="date-item">🎬 Netflix party + video call</div>
+        <div class="date-item">🍕 Order the same food & judge each other</div>
+        <div class="date-item">🌙 Late night talks till we fall asleep</div>
+        <div class="date-item">🤳 Simping over your selfies shamelessly</div>
     </div>
 
     <div class="section-container">
@@ -296,81 +202,98 @@
 
     <div class="section-container">
         <div class="section-header">Our Favorite Memories 📸</div>
-        <p style="font-size: 0.8rem; margin-bottom: 20px;">Click to reveal each memory 💕</p>
         <div class="memory-grid">
             <div class="memory-card" onclick="revealMem(this)">
-                <span class="gift" style="font-size: 2.5rem;">🎁</span>
-                <img src="YOUR_IMAGE_1.jpg">
-                <div class="memory-cap">Catching you in your natural habitat: being absolutely adorable ✨</div>
+                <span style="font-size: 2.5rem;">🎁</span>
+                <img src="IMAGE_URL_1">
+                <div class="memory-cap">Catching you in your natural habitat ✨</div>
             </div>
             <div class="memory-card" onclick="revealMem(this)">
-                <span class="gift" style="font-size: 2.5rem;">🎁</span>
-                <img src="YOUR_IMAGE_2.jpg">
-                <div class="memory-cap">That smile >>> everything else in the world</div>
+                <span style="font-size: 2.5rem;">🎁</span>
+                <img src="IMAGE_URL_2">
+                <div class="memory-cap">That smile >>> everything 💖</div>
             </div>
             <div class="memory-card" onclick="revealMem(this)">
-                <span class="gift" style="font-size: 2.5rem;">🎁</span>
-                <img src="YOUR_IMAGE_3.jpg">
-                <div class="memory-cap">When you're taking a cute pic but food is life 🍕</div>
+                <span style="font-size: 2.5rem;">🎁</span>
+                <img src="IMAGE_URL_3">
+                <div class="memory-cap">When food is life 🍕</div>
             </div>
             <div class="memory-card" onclick="revealMem(this)">
-                <span class="gift" style="font-size: 2.5rem;">🎁</span>
-                <img src="YOUR_IMAGE_4.jpg">
-                <div class="memory-cap">Just you being you - my favorite version of perfect ❤️</div>
+                <span style="font-size: 2.5rem;">🎁</span>
+                <img src="IMAGE_URL_4">
+                <div class="memory-cap">My favorite version of perfect ❤️</div>
             </div>
         </div>
     </div>
 
     <div class="section-container">
         <div class="section-header">Our Soundtrack 🎵</div>
-        <p style="font-size: 0.8rem; font-style: italic; margin-bottom: 20px; color: #888;">Songs that make me think of you (can't listen to these without smiling like an idiot) ✨</p>
-        <div class="spotify-embed"><iframe src="https://open.spotify.com/embed/track/5uCax9HTNlzGybIStD3vDh?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>
-        <div class="spotify-embed"><iframe src="https://open.spotify.com/embed/track/2SST0vF6TCH9Rshv1YQ4S0?utm_source=generator" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe></div>
+        <p style="font-size: 0.8rem; font-style: italic; color: #888;">Songs that make me think of you ✨</p>
+        <div class="spotify-embed"><iframe src="http://googleusercontent.com/spotify.com/8" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen;"></iframe></div>
+        <div class="spotify-embed"><iframe src="http://googleusercontent.com/spotify.com/9" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen;"></iframe></div>
     </div>
 
     <div class="section-container">
         <div class="section-header">Things I Love About You ✨</div>
         <div class="reasons-grid">
-            <div class="reason-card">Your smile literally makes my entire day (and my heart melts)</div>
-            <div class="reason-card">You're funnier than my entire instagram feed</div>
-            <div class="reason-card">Your voice > any song</div>
-            <div class="reason-card">You understand my we my terrible jokes</div>
-            <div class="reason-card">Your chaotic energy matches mine perfectly ✨</div>
-            <div class="reason-card">You make me want to be less of a gandu (that's true love)</div>
-            <div class="reason-card">You're beautiful and you don't even try (which is annoying honestly)</div>
-            <div class="reason-card">You're stuck with me now and there's no escape</div>
+            <div class="reason-card">Your smile makes my heart do weird things 💞</div>
+            <div class="reason-card">You're funnier than my IG feed 😆</div>
+            <div class="reason-card">Your voice > any song 🎶</div>
+            <div class="reason-card">You troll at my terrible jokes ✨</div>
+            <div class="reason-card">Beautiful without even trying 😂</div>
+            <div class="reason-card">Chaotic energy matches mine perfectly 🔥</div>
+            <div class="reason-card">You make me want to be less of a gandu 💞</div>
+            <div class="reason-card">Stuck with me and there's no escape 😈</div>
         </div>
     </div>
 
     <div class="section-container">
         <div class="section-header">Secret Surprises 🎁</div>
-        <p style="font-size: 0.8rem; margin-bottom: 20px;">Click each button for a surprise message 😉</p>
         <div class="surprise-container">
-            <button class="surprise-btn" onclick="alert('I\'m behaving... but only because you\'re not here to distract me 😇')">Surprise #1 🍭</button>
-            <button class="surprise-btn" onclick="alert('I miss you more than I miss being sane. 🫠')">Surprise #2 🌙</button>
-            <button class="surprise-btn" onclick="alert('You just won a free pass for 100 forehead kisses! 🎫')">Surprise #3 🔥</button>
-            <button class="surprise-btn" onclick="alert('I can\'t wait to hold your hand again. ❤️')">Surprise #4 💋</button>
+            <button class="surprise-btn" onclick="alert('I am behaving... mostly 😇')">Surprise #1 🍭</button>
+            <button class="surprise-btn" onclick="alert('I miss you 1000x more today 🌙')">Surprise #2 🌙</button>
+            <button class="surprise-btn" onclick="alert('You won 100 forehead kisses! 🎫')">Surprise #3 🔥</button>
+            <button class="surprise-btn" onclick="alert('Can\'t wait to hold you ❤️')">Surprise #4 💋</button>
         </div>
-        
-        <div style="margin-top: 50px; font-size: 0.75rem; color: #888; font-style: italic;">
-            Made with love + mehnat + too much horniness by your gandu boyfriend ❤️<br>
-            P.S. I love you more than you love food. Yeah, I said it. 💅
+        <div style="margin-top: 50px; font-size: 0.75rem; color: #888;">
+            Made with love + mehnat + too much horniness by your gandu boyfriend ❤️
         </div>
     </div>
 
     <script>
-        let scale = 1;
-        let no2Tries = 0;
+        let yesScale = 1;
+        let noCount = 0;
+        const noTexts = ["No", "Are you sure?", "Pookie please", "Don't do this :(", "Breaking my heart", "I'm gonna cry..."];
 
-        // No button logic
+        // Growing "Yes" and Jumping "No" Logic
         document.getElementById('noBtn').addEventListener('mouseover', function() {
-            scale += 0.5;
-            document.getElementById('yesBtn').style.transform = `scale(${scale})`;
+            if (noCount < 5) noCount++;
+            this.textContent = noTexts[noCount];
+            
+            yesScale += 0.4;
+            document.getElementById('yesBtn').style.transform = `scale(${yesScale})`;
+            
             this.style.position = 'fixed';
             this.style.left = Math.random() * 80 + '%';
             this.style.top = Math.random() * 80 + '%';
         });
 
+        function showLove() {
+            document.getElementById('initial-screen').style.display = 'none';
+            document.getElementById('success-content').style.display = 'block';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleEnvelope() { document.getElementById('envWrapper').classList.toggle('open'); }
+
+        function revealMem(card) {
+            card.querySelector('span').style.display = 'none';
+            card.querySelector('img').style.display = 'block';
+            card.querySelector('.memory-cap').style.display = 'block';
+            card.style.background = 'white';
+        }
+        
+        let no2Tries = 0;
         document.getElementById('noBtn2').addEventListener('mouseover', function() {
             if (no2Tries < 4) {
                 this.style.position = 'fixed';
@@ -380,29 +303,11 @@
             }
         });
 
-        function showLove() {
-            document.getElementById('initial-screen').style.display = 'none';
-            document.getElementById('success-content').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
         function handleActuallyNo() {
             if (no2Tries >= 4) {
                 document.getElementById('too-late-card').style.display = 'block';
                 document.getElementById('change-mind-container').style.display = 'none';
             }
-        }
-
-        function toggleEnvelope() { document.getElementById('envWrapper').classList.toggle('open'); }
-
-        function revealMem(card) {
-            const gift = card.querySelector('.gift');
-            const img = card.querySelector('img');
-            const cap = card.querySelector('.memory-cap');
-            gift.style.display = 'none';
-            img.style.display = 'block';
-            cap.style.display = 'block';
-            card.style.background = 'white';
         }
     </script>
 </body>
