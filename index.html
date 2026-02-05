@@ -221,7 +221,31 @@
             </ul>
             <p style="text-align: center; font-weight: bold;">Deal with it 💅✨</p>
         </div>
-        <button class="btn-main" style="margin-top: 30px;" onclick="next(3)">Open My Letter ✉️</button>
+        <button class="btn-main" style="margin-top: 30px;" onclick="next('dates')">See What I've Planned ✨</button>
+    </div>
+
+    <div id="sdates" class="screen">
+        <h1 style="font-size: 2rem;">Our Virtual Date Ideas 📱</h1>
+        <div style="width: 100%; display: flex; flex-direction: column; gap: 12px; margin: 15px 0;">
+            
+            <div style="background: var(--pink-soft); padding: 18px 25px; border-radius: 50px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <span>🎬</span> <span style="font-size: 15px; font-weight: 500;">Netflix party + video call</span>
+            </div>
+
+            <div style="background: var(--pink-soft); padding: 18px 25px; border-radius: 50px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <span>🍕</span> <span style="font-size: 15px; font-weight: 500;">Order the same food & judge each other</span>
+            </div>
+
+            <div style="background: var(--pink-soft); padding: 18px 25px; border-radius: 50px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <span>🌙</span> <span style="font-size: 15px; font-weight: 500;">Late night talks till we fall asleep</span>
+            </div>
+
+            <div style="background: var(--pink-soft); padding: 18px 25px; border-radius: 50px; display: flex; align-items: center; gap: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.03);">
+                <span>🤳</span> <span style="font-size: 15px; font-weight: 500;">Simping over your selfies shamelessly</span>
+            </div>
+
+            <button class="btn-main" onclick="next(3)">Open My Letter ✉️</button>
+        </div>
     </div>
 
     <div id="s3" class="screen">
@@ -322,9 +346,34 @@
             </div>
             <p style="text-align: center; font-size: 11px; font-style: italic; color: #5a3d42; margin-top: 20px;">This came from a very genuine place.</p>
             <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="btn-main" style="flex: 2; margin-top: 0;" onclick="next(9)">Seal It 💌 ❤️</button>
+                <button class="btn-main" style="flex: 2; margin-top: 0;" onclick="next('Legal')">Sign Settlement ⚖️</button></button>
                 <button class="btn-restart" style="flex: 1;" onclick="location.reload()">Restart</button>
             </div>
+        </div>
+    </div>
+
+    <div id="sLegal" class="screen">
+        <h1 style="font-size: 1.8rem;">Official Agreement ⚖️</h1>
+        <div class="window" style="padding: 20px; font-size: 13px; line-height: 1.6; background: #fff;">
+            <div style="border: 2px solid #5a3d42; padding: 15px; border-radius: 10px;">
+                <p style="text-align: center; font-weight: bold; text-decoration: underline; margin-top: 0;">REASSURANCE AGREEMENT</p>
+                
+                <p><strong>Case No:</strong>Forever<br>
+                <strong>Parties:</strong> PUNGUU (Respondent) vs. BOGUS (The Boss/Love of My Life)</p>
+                
+                <hr style="border: 0; border-top: 1px solid #eee;">
+                
+                <p><strong>• Division of Assets:</strong> 100% ownership of the Respondent’s heart remains exclusively with <strong>BOGUS BACCHHAA</strong>.</p>
+                
+                <p><strong>• Spousal Support:</strong> Mandatory unlimited forehead kisses and 2-hour daily sessions for listening to overthinking thoughts.</p>
+                
+                <p><strong>• Restraining Order:</strong> All other girls are legally confined to the "Strictly Professional Zone."</p>
+                
+                <p><strong>• The Addendum:</strong> BOGUS BACCHHAA is ordered to provide a daily quota of “Kuttu videos” and “Good Morning Pictures.”</p>
+                
+                <p style="text-align: right; font-family: 'Dancing Script'; font-size: 1.2rem; margin-top: 20px;">Signed & Sealed ❤️</p>
+            </div>
+            <button class="btn-main" onclick="next(9)">Finalize Agreement ✅</button>
         </div>
     </div>
 
