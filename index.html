@@ -3,313 +3,427 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4th Aniversary</title>
+    <title>A Valentine Moment</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;700&display=swap');
 
         :root {
-            --bg-color: #ffdae0;
-            --primary-pink: #ff8fa3;
-            --secondary-pink: #ff4d6d;
-            --text-dark: #5c2d36;
+            --pink-bg: #fdf0f5;
+            --pink-accent: #ff4d6d;
+            --pink-light: #ffcad4;
+            --pink-soft: #fff0f3;
+            --text: #5a3d42;
+            --purple-accent: #d1b3ff;
+            --cassette-cream: #f4ece1;
+            --cassette-green: #e1f4e5;
         }
 
         body {
-            background-color: var(--bg-color);
+            background-color: var(--pink-bg);
             font-family: 'Quicksand', sans-serif;
-            color: var(--text-dark);
             margin: 0;
-            padding: 40px 10px;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+            color: var(--text);
+        }
+
+        /* Falling Petals Background */
+        .petal {
+            position: fixed;
+            top: -10%;
+            background-color: #ffb7c5;
+            border-radius: 150% 0 150% 0;
+            opacity: 0.6;
+            pointer-events: none;
+            z-index: 0;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall { to { transform: translateY(110vh) rotate(360deg); } }
+
+        .phone-emulator {
+            width: 100%;
+            max-width: 420px;
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
             display: flex;
             flex-direction: column;
             align-items: center;
-            overflow-x: hidden;
         }
 
-        .section-container {
-            max-width: 550px;
-            width: 100%;
-            text-align: center;
-            margin-bottom: 60px;
-        }
+        .screen { display: none; width: 100%; animation: fadeIn 0.6s ease; }
+        .active { display: flex; flex-direction: column; align-items: center; }
 
-        h1 { font-family: 'Fredoka One', cursive; color: var(--secondary-pink); font-size: 2.8rem; margin: 10px 0; }
-        .section-header { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--secondary-pink); margin: 20px 0; }
+        @keyframes fadeIn { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
 
-        /* YES/NO BUTTONS LOGIC */
-        .btn-container { display: flex; align-items: center; justify-content: center; gap: 20px; min-height: 300px; }
-        .btn-yes {
-            background-color: var(--secondary-pink); color: white; border: none; padding: 12px 35px; border-radius: 25px;
-            font-weight: bold; font-size: 1.1rem; cursor: pointer; transition: all 0.2s ease-out; z-index: 100;
-        }
-        .btn-no { background-color: #f3f4f6; color: #374151; border: none; padding: 10px 25px; border-radius: 20px; font-weight: bold; cursor: pointer; z-index: 101; transition: 0.1s; }
-
-        /* SUCCESS SCREEN & TOO LATE */
-        #success-content { display: none; }
-        .cat-gif { width: 140px; border-radius: 15px; background: white; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        #too-late-card { display: none; background: rgba(255, 255, 255, 0.4); border: 2px dashed var(--secondary-pink); padding: 25px; border-radius: 25px; text-align: left; margin-top: 20px; }
-
-        /* DATE IDEAS */
-        .date-item { background: rgba(255, 255, 255, 0.5); margin: 10px 0; padding: 15px; border-radius: 18px; font-size: 0.9rem; text-align: left; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
-
-        /* --- ENVELOPE DESIGN --- */
-        .envelope-wrapper {
-            position: relative;
-            width: 200px;
-            height: 130px;
-            margin: 60px auto 20px auto;
-            cursor: pointer;
-            background: #ff7a91; 
-            border-radius: 0 0 10px 10px;
-        }
-
-        .envelope {
-            position: absolute;
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid var(--primary-pink);
-            border-right: 100px solid var(--primary-pink);
-            border-top: 65px solid transparent;
-            border-bottom: 65px solid var(--primary-pink);
-            border-radius: 0 0 10px 10px;
-            z-index: 10;
-        }
-
-        .flap {
-            position: absolute;
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 100px solid transparent;
-            border-right: 100px solid transparent;
-            border-top: 80px solid var(--secondary-pink);
-            transform-origin: top;
-            transition: transform 0.4s ease;
-            z-index: 12;
-        }
-
-        #letter {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            width: 180px;
-            height: 110px;
+        .window {
             background: white;
+            border-radius: 24px;
+            width: 100%;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(255, 182, 193, 0.4);
+            border: 2px solid var(--pink-light);
+            margin: 15px 0;
+            position: relative;
+        }
+
+        /* Cassette Styling */
+        .cassette {
+            width: 90%;
+            border-radius: 15px;
             padding: 15px;
-            box-sizing: border-box;
-            font-style: italic;
-            color: var(--secondary-pink);
-            font-weight: bold;
-            font-size: 0.85rem;
-            transition: transform 0.5s ease;
-            z-index: 5;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+            margin: 10px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .cassette-label {
+            background: white;
+            width: 95%;
+            height: 60px;
+            border-radius: 8px;
+            border-top: 15px solid var(--pink-light);
+            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
+        }
+        .cassette-reels {
+            width: 60%;
+            height: 30px;
+            background: #333;
+            margin: 10px 0;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .reel { width: 18px; height: 18px; border: 2px dashed #666; border-radius: 50%; animation: spin 3s linear infinite paused; }
+        .playing .reel { animation-play-state: running; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        .play-btn-circle {
+            width: 40px; height: 40px; background: var(--pink-accent); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: white; cursor: pointer;
         }
 
-        .envelope-wrapper.open .flap {
-            transform: rotateX(180deg);
-            z-index: 1; 
+        /* Buttons */
+        .btn-main {
+            background: var(--pink-accent); color: white; border: none;
+            padding: 16px 32px; border-radius: 40px; font-weight: 700;
+            width: 100%; cursor: pointer; font-size: 18px; margin-top: 15px;
+            display: flex; align-items: center; justify-content: center; gap: 8px;
         }
 
-        .envelope-wrapper.open #letter {
-            transform: translateY(-80px);
-            z-index: 11; 
+        #yesBtn {
+            background: var(--pink-accent); color: white; border: none;
+            padding: 15px 30px; border-radius: 40px; font-weight: 700;
+            cursor: pointer; transition: transform 0.2s ease;
         }
 
-        .envelope-heart {
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1.5rem;
-            z-index: 13;
-            transition: opacity 0.3s;
+        #noBtn, #actuallyNoBtn {
+            background: #f0f2f5; color: #5a3d42; border: none;
+            padding: 12px 25px; border-radius: 40px; font-weight: 700;
+            cursor: pointer; transition: 0.2s ease;
         }
-        .envelope-wrapper.open .envelope-heart { opacity: 0; }
 
-        /* MEMORY GIFT BOXES */
-        .memory-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
-        .memory-card { background: rgba(255, 255, 255, 0.6); aspect-ratio: 1/1; border-radius: 25px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 10px; box-shadow: 0 4px 10px rgba(0,0,0,0.03); }
-        .memory-card img { width: 100%; height: 70%; object-fit: cover; border-radius: 15px; display: none; }
-        .memory-cap { display: none; font-size: 0.65rem; font-weight: bold; margin-top: 8px; line-height: 1.2; }
+        .btn-restart {
+            background: var(--purple-accent); color: white; border: none;
+            padding: 16px 32px; border-radius: 40px; font-weight: 700;
+            width: 100%; cursor: pointer; font-size: 18px;
+        }
 
-        /* SOUNDTRACK */
-        .spotify-embed { width: 100%; border-radius: 15px; overflow: hidden; margin-bottom: 12px; height: 80px; }
+        /* Babu Page & Too Late Modal */
+        .babu-title { color: #ff5e7e; font-size: 2.2rem; text-align: center; margin-bottom: 10px; }
+        .image-placeholder { width: 140px; height: 160px; background: white; border-radius: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-        /* THINGS I LOVE GRADIENT CARDS */
-        .reasons-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .reason-card { background: linear-gradient(135deg, #ff8da1 0%, #ffb3ce 100%); color: white; padding: 18px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; text-align: left; line-height: 1.3; box-shadow: 0 4px 15px rgba(255, 141, 161, 0.2); }
+        .too-late-card {
+            background: #fff0f3;
+            border: 2px dashed #ff8fa3;
+            border-radius: 25px;
+            padding: 20px;
+            margin-top: 20px;
+            width: 90%;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .too-late-card h3 { color: #ff4d6d; text-align: center; margin-top: 0; }
+        .checklist { list-style: none; padding: 0; margin: 15px 0; font-size: 14px; }
+        .checklist li { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 10px; }
 
-        /* SECRET SURPRISE BUTTONS */
-        .surprise-container { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; }
-        .surprise-btn { background: #ffcc33; color: white; border: none; padding: 12px 25px; border-radius: 50px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 0px #e6b82e; transition: 0.1s; }
-        .surprise-btn:active { transform: translateY(3px); box-shadow: 0 1px 0px #e6b82e; }
+        /* Final Letter Specifics */
+        .final-letter-bg { background-color: #fce4ec; border-radius: 20px; padding: 20px; width: 100%; box-sizing: border-box; }
+        .letter-content { background: white; border-radius: 15px; padding: 25px; min-height: 200px; font-style: italic; color: #5a3d42; line-height: 1.8; }
+
+        /* Animation & Loader */
+        .loader-container { width: 85%; height: 14px; background: white; border-radius: 10px; border: 1px solid var(--pink-light); overflow: hidden; margin-top: 20px; }
+        .loader-fill { width: 0%; height: 100%; background: var(--pink-accent); transition: width 2s linear; }
+
+        .envelope { width: 180px; height: 120px; background: #ff8fa3; position: relative; cursor: pointer; border-radius: 0 0 10px 10px; margin: 30px auto; }
+        .envelope::before { content: ''; position: absolute; top: 0; left: 0; border-left: 90px solid transparent; border-right: 90px solid transparent; border-top: 70px solid #ff4d6d; z-index: 2; transition: 0.5s; }
+        .open::before { transform: rotateX(180deg); transform-origin: top; }
+
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0; width: 100%; }
+        .tile { aspect-ratio: 1/1; background: var(--pink-accent); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; cursor: pointer; }
+        
+        h1, h2 { font-family: 'Dancing Script', cursive; color: var(--pink-accent); }
     </style>
 </head>
 <body>
 
-    <div class="section-container" id="initial-screen">
-        <h1>Bachhaaa, Will you be my Forever? 💕</h1>
-        <p>Official invite from your long-distance partner</p>
-        <div class="btn-container">
-            <button class="btn-yes" id="yesBtn" onclick="showLove()">YES! 💖</button>
-            <button class="btn-no" id="noBtn">No</button>
-        </div>
+<div class="phone-emulator">
+
+    <div id="s1" class="screen active">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExOHp6eHJ6OHZ6eHJ6OHZ6eHJ6OHZ6eHJ6OHZ6eHJ6OHZ6eHJ6OCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/v9G3NGyEtofHYGSGMY/giphy.gif" width="160" style="margin-top:120px;">
+        <h1 style="text-align: center;">A Valentine Moment</h1>
+        <p style="text-align: center; font-style: italic; color: #888;">is being prepared for you...</p>
+        <div class="loader-container"><div id="loadBar" class="loader-fill"></div></div>
     </div>
 
-    <div id="success-content" class="section-container">
-        <h2 class="section-header">Good choice Bachhaaa 🥹</h2>
-        <p style="font-size: 0.85rem;">You just unlocked unlimited hugs, kisses, and cuddles!</p>
-        <div style="display:flex; justify-content:center; gap:15px; margin: 25px 0;">
-            <img src="https://media.tenor.com/7S_m9yvX8v8AAAAM/peach-goma.gif" class="cat-gif">
-            <img src="https://media.tenor.com/9v1hP_mY6mEAAAAM/mochi-peach-cat-mochi-cat.gif" class="cat-gif">
-        </div>
-        <p style="font-weight: bold; color: var(--secondary-pink);">Now you're stuck with me forever ∞</p>
-        <div id="change-mind-container">
-            <p style="font-size: 0.8rem; color: #888;">Wait... do you want to change your mind?</p>
-            <button class="btn-no" id="noBtn2" onclick="handleActuallyNo()">Actually... No 😈</button>
-        </div>
-        <div id="too-late-card">
-            <h3 style="text-align:center; color:var(--secondary-pink);">TOO LATE!</h3>
-            <p>❌ No take-backs allowed</p>
-            <p>❌ You're legally mine now (I checked)</p>
-            <p>❌ Every "no" from now on = 10 extra kisses when we meet</p>
-            <p>✅ Stuck with your Pungu FOREVER ❤️</p>
-        </div>
-    </div>
-
-    <div class="section-container">
-        <div class="section-header">Our Virtual Date Ideas 📱</div>
-        <div class="date-item">🎬 Video call</div>
-        <div class="date-item">🍕 Order the same food & judge each other</div>
-        <div class="date-item">🌙 Late night talks till we fall asleep</div>
-        <div class="date-item">🤳 Send me your Good Morning selfies so I can simp shamelessly</div>
-    </div>
-
-    <div class="section-container">
-        <div class="section-header">A Secret Note For You 💌</div>
-        <p style="font-size: 0.8rem; color: #888;">Click the envelope to open it...</p>
-        <div class="envelope-wrapper" id="envWrapper" onclick="toggleEnvelope()">
-            <div class="flap"></div>
-            <div class="envelope"></div>
-            <div id="letter">"Distance is just a number. Every day I fall a little more in love with you. ❤️"</div>
-        </div>
-    </div>
-
-    <div class="section-container">
-        <div class="section-header">Our Favorite Memories 📸</div>
-        <div class="memory-grid">
-            <div class="memory-card" onclick="revealMem(this)">
-                <span style="font-size: 2.5rem;">🎁</span>
-                <img src="IMAGE_URL_1">
-                <div class="memory-cap">Catching you in your natural habitat ✨</div>
-            </div>
-            <div class="memory-card" onclick="revealMem(this)">
-                <span style="font-size: 2.5rem;">🎁</span>
-                <img src="IMAGE_URL_2">
-                <div class="memory-cap">That smile >>> everything 💖</div>
-            </div>
-            <div class="memory-card" onclick="revealMem(this)">
-                <span style="font-size: 2.5rem;">🎁</span>
-                <img src="IMAGE_URL_3">
-                <div class="memory-cap">When food is life 🍕</div>
-            </div>
-            <div class="memory-card" onclick="revealMem(this)">
-                <span style="font-size: 2.5rem;">🎁</span>
-                <img src="IMAGE_URL_4">
-                <div class="memory-cap">My favorite version of perfect ❤️</div>
+    <div id="s2" class="screen">
+        <p style="text-align: center; color: #888; font-style: italic;">I have a question...</p>
+        <h1 style="text-align: center;">Will You Be My Valentine? 💖</h1>
+        <div class="window">
+            <div style="padding: 30px; text-align: center;">
+                <p>I made this specifically for you.</p>
+                <div style="display: flex; justify-content: center; gap: 15px; margin-top: 20px; min-height: 120px; align-items: center;">
+                    <button id="yesBtn" onclick="next('2b')">YES</button>
+                    <button id="noBtn" onclick="handleNo('noBtn')">No</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="section-container">
-        <div class="section-header">Our Soundtrack 🎵</div>
-        <p style="font-size: 0.8rem; font-style: italic; color: #888;">Songs that make me think of you ✨</p>
-        <div class="spotify-embed"><iframe src="http://googleusercontent.com/spotify.com/8" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen;"></iframe></div>
-        <div class="spotify-embed"><iframe src="http://googleusercontent.com/spotify.com/9" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen;"></iframe></div>
+    <div id="s2b" class="screen">
+        <h1 class="babu-title">Good choice babu 🥺</h1>
+        <p style="text-align: center; font-size: 14px; padding: 0 10px;">You just unlocked unlimited hugs, kisses, and cuddles (redeemable very soon I promise)</p>
+        <div style="display: flex; gap: 15px; margin: 25px 0;">
+            <div class="image-placeholder"></div>
+            <div class="image-placeholder"></div>
+        </div>
+        <h2 id="foreverText" style="font-family: 'Quicksand'; font-size: 1.2rem; color: #ff5e7e; margin: 10px 0;">Now you're stuck with me forever ∞</h2>
+        <div id="changeMindSection" style="text-align: center;">
+            <p style="font-size: 12px; color: #888; margin-top: 25px;">Wait... do you want to change your mind?</p>
+            <button id="actuallyNoBtn" onclick="handleActuallyNo()">Actually... No 😈</button>
+        </div>
+        <div id="tooLateCard" class="too-late-card">
+            <h3>TOO LATE!</h3>
+            <p style="font-size: 13px; margin-bottom: 10px;">You already said YES, which means:</p>
+            <ul class="checklist">
+                <li>❌ No take-backs allowed</li>
+                <li>❌ You're legally mine now (I checked)</li>
+                <li>❌ Every "no" from now on = 10 extra kisses when we meet</li>
+                <li>✅ You're stuck with your gandu boyfriend FOREVER ❤️</li>
+            </ul>
+            <p style="text-align: center; font-weight: bold;">Deal with it 💅✨</p>
+        </div>
+        <button class="btn-main" style="margin-top: 30px;" onclick="next(3)">Open My Letter ✉️</button>
     </div>
 
-    <div class="section-container">
-        <div class="section-header">Things I Love About You ✨</div>
-        <div class="reasons-grid">
-            <div class="reason-card">Your smile makes my heart do weird things 💞</div>
-            <div class="reason-card">You're funnier than my IG feed 😆</div>
-            <div class="reason-card">Your voice > any song 🎶</div>
-            <div class="reason-card">You troll at my terrible jokes ✨</div>
-            <div class="reason-card">Beautiful without even trying 😂</div>
-            <div class="reason-card">Chaotic energy matches mine perfectly 🔥</div>
-            <div class="reason-card">You make me want to be less of a gandu 💞</div>
-            <div class="reason-card">Stuck with me and there's no escape 😈</div>
+    <div id="s3" class="screen">
+        <h1 style="text-align: center;">For Your Eyes Only ✉️</h1>
+        <div class="window" style="padding: 40px 20px; text-align: center;">
+            <div id="env" class="envelope" onclick="this.classList.add('open'); setTimeout(()=>next(4), 800)"></div>
+            <p>Tap to open your note</p>
         </div>
     </div>
 
-    <div class="section-container">
-        <div class="section-header">Secret Surprises 🎁</div>
-        <div class="surprise-container">
-            <button class="surprise-btn" onclick="alert('I am behaving... mostly 😇')">Surprise #1 🍭</button>
-            <button class="surprise-btn" onclick="alert('I miss you 1000x more today 🌙')">Surprise #2 🌙</button>
-            <button class="surprise-btn" onclick="alert('You won 100 forehead kisses! 🎫')">Surprise #3 🔥</button>
-            <button class="surprise-btn" onclick="alert('Can\'t wait to hold you ❤️')">Surprise #4 💋</button>
-        </div>
-        <div style="margin-top: 50px; font-size: 0.75rem; color: #888;">
-            Made with love + mehnat + too much horniness by your gandu boyfriend ❤️
+    <div id="s4" class="screen">
+        <h2 style="text-align: center;">A Valentine Note ✉️</h2>
+        <div class="window" style="padding: 25px; line-height: 1.7; font-size: 15px;">
+            <p>I wanted to do something special today, simply because you matter to me. Valentine's Day isn't about grand gestures—it's about the feeling of choosing someone, even in the quiet moments.</p>
+            <p>Being around you feels safe, natural, and real. I appreciate your honesty, your kindness, and the way you show up as yourself.</p>
+            <button class="btn-main" onclick="next('Playlist')">Next ✨</button>
         </div>
     </div>
 
-    <script>
-        let yesScale = 1;
-        let noCount = 0;
-        const noTexts = ["No", "Are you sure?", "Pookie please", "Don't do this :(", "Breaking my heart", "I'm gonna cry..."];
+    <div id="sPlaylist" class="screen">
+        <h1 style="text-align: center; font-size: 1.8rem; margin-top: 10px;">Songs That Feel Like<br>Valentine's Day</h1>
+        <div class="cassette playing" style="background: var(--cassette-cream);">
+            <div style="font-size: 10px; align-self: flex-start; margin-left: 20px; color: #888;">SIDE A</div>
+            <div class="cassette-label">
+                <div style="font-weight: bold; font-size: 1.1rem;">Waalian</div>
+                <div style="font-size: 12px; color: var(--pink-accent);">Some feelings feel calm and deep ✨</div>
+            </div>
+            <div class="cassette-reels"><div class="reel"></div><div class="reel"></div></div>
+            <div style="display: flex; width: 100%; justify-content: space-around; align-items: center;">
+                <span style="font-size: 12px; color: #888;">0:00</span>
+                <div class="play-btn-circle">||</div>
+                <span style="font-size: 18px;">❤️</span>
+            </div>
+        </div>
+        <div class="cassette" style="background: var(--cassette-green);">
+            <div style="font-size: 10px; align-self: flex-start; margin-left: 20px; color: #888;">SIDE A</div>
+            <div class="cassette-label">
+                <div style="font-weight: bold; font-size: 1.1rem;">Lag Jaa Gale</div>
+                <div style="font-size: 12px; color: var(--pink-accent);">Because closeness matters 🤍</div>
+            </div>
+            <div class="cassette-reels"><div class="reel"></div><div class="reel"></div></div>
+            <div style="display: flex; width: 100%; justify-content: space-around; align-items: center;">
+                <span style="font-size: 12px; color: #888;">0:00</span>
+                <div class="play-btn-circle" style="padding-left: 4px;">▶</div>
+                <span style="font-size: 18px;">❤️</span>
+            </div>
+        </div>
+        <button class="btn-main" onclick="next(5)">Next: A Fun Game ➔</button>
+    </div>
 
-        // Growing "Yes" and Jumping "No" Logic
-        document.getElementById('noBtn').addEventListener('mouseover', function() {
-            if (noCount < 5) noCount++;
-            this.textContent = noTexts[noCount];
-            
-            yesScale += 0.4;
-            document.getElementById('yesBtn').style.transform = `scale(${yesScale})`;
-            
-            this.style.position = 'fixed';
-            this.style.left = Math.random() * 80 + '%';
-            this.style.top = Math.random() * 80 + '%';
+    <div id="s5" class="screen">
+        <h1 style="text-align: center;">Memory Match</h1>
+        <p style="text-align: center; font-style: italic; color: #888;">Match the pairs to continue!</p>
+        <div id="gameGrid" class="grid"></div>
+        <button id="gameNext" class="btn-main" style="display:none;" onclick="next('7')">You Got It! Continue ➔</button>
+    </div>
+
+    <div id="s7" class="screen">
+        <h1 style="text-align: center;">A Random Thought</h1>
+        <div class="window" style="padding: 20px; display: flex; flex-direction: column; align-items: center;">
+            <div style="background: white; padding: 15px 15px 30px 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); transform: rotate(-2deg); width: 80%;">
+                <img src="https://placecats.com/300/200" width="100%" style="border-radius: 4px; display: block;">
+                <p style="text-align:center; font-family: 'Dancing Script'; font-size: 1.5rem; margin-top: 15px; color: #5a3d42;">Us? 🥺</p>
+            </div>
+            <p style="margin-top: 25px; font-style: italic;">I brought you flowers 🌸</p>
+            <button class="btn-main" onclick="next('matter')">Final Thought ❤️</button>
+        </div>
+    </div>
+
+    <div id="smatter" class="screen">
+        <h1 style="text-align: center;">Why You Matter... 🌸</h1>
+        <div class="window" style="padding: 20px;">
+            <div style="background: #fff0f3; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid var(--pink-accent);">
+                <p>✨ Your laugh makes my day brighter.</p>
+            </div>
+            <div style="background: #fff0f3; padding: 15px; border-radius: 15px; margin-bottom: 10px; border-left: 5px solid var(--pink-accent);">
+                <p>✨ You understand me like no one else.</p>
+            </div>
+            <div style="background: #fff0f3; padding: 15px; border-radius: 15px; border-left: 5px solid var(--pink-accent);">
+                <p>✨ You're my favorite person to talk to.</p>
+            </div>
+            <button class="btn-main" onclick="next(8)">One Last Thing... 💭</button>
+        </div>
+    </div>
+
+    <div id="s8" class="screen">
+        <h1 style="text-align: center; font-size: 2.2rem; margin-top: 0;">One Last Valentine Thought</h1>
+        <div class="final-letter-bg">
+            <div style="display: flex; align-items: center; margin-bottom: 15px;">
+                <div style="background: #ff5e7e; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white;">✉️</div>
+                <span style="font-family: 'Dancing Script'; font-size: 1.5rem; color: #ff5e7e; margin-left: 10px;">Final Love Letter</span>
+            </div>
+            <div class="letter-content">
+                <p style="color: #ff5e7e; font-weight: bold; margin-top: 0;">Hey,</p>
+                <p>This wasn't about perfection, just honesty.</p>
+                <p>I wanted you to feel appreciated today.</p>
+                <p>Whatever comes next, I'm glad this moment exists.</p>
+            </div>
+            <p style="text-align: center; font-size: 11px; font-style: italic; color: #5a3d42; margin-top: 20px;">This came from a very genuine place.</p>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="btn-main" style="flex: 2; margin-top: 0;" onclick="next(9)">Seal It 💌 ❤️</button>
+                <button class="btn-restart" style="flex: 1;" onclick="location.reload()">Restart</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="s9" class="screen">
+        <div class="window" style="padding: 40px 20px; text-align: center; background: var(--pink-soft);">
+            <div style="font-size: 50px;">💝</div>
+            <h1 style="text-align: center;">Sent With Care</h1>
+            <p id="dateDisplay" style="text-align: center;"></p>
+            <p style="text-align: center;">You made my day by saying yes!</p>
+            <button class="btn-main" onclick="location.reload()">See Again ✨</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function next(n) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+        document.getElementById('s' + n).classList.add('active');
+        if(n === 5) initGame();
+        window.scrollTo(0,0);
+    }
+
+    window.onload = () => {
+        createPetals();
+        document.getElementById('dateDisplay').innerText = new Date().toLocaleDateString();
+        setTimeout(() => {
+            document.getElementById('loadBar').style.width = '100%';
+            setTimeout(() => next(2), 2200);
+        }, 500);
+    };
+
+    let noCount = 0;
+    function handleNo(id) {
+        const btn = document.getElementById(id);
+        const yesBtn = document.getElementById('yesBtn');
+        noCount++;
+        if(id === 'noBtn') yesBtn.style.transform = `scale(${1 + (noCount * 0.4)})`;
+        btn.style.position = 'fixed';
+        btn.style.left = Math.random() * 60 + 20 + '%';
+        btn.style.top = Math.random() * 60 + 20 + '%';
+        btn.style.zIndex = '1000';
+    }
+
+    let actuallyNoClicks = 0;
+    function handleActuallyNo() {
+        actuallyNoClicks++;
+        const btn = document.getElementById('actuallyNoBtn');
+        if (actuallyNoClicks < 3) {
+            btn.style.position = 'fixed';
+            btn.style.left = Math.random() * 60 + 20 + '%';
+            btn.style.top = Math.random() * 60 + 20 + '%';
+        } else {
+            document.getElementById('changeMindSection').style.display = 'none';
+            document.getElementById('tooLateCard').style.display = 'block';
+            document.getElementById('foreverText').style.display = 'none';
+        }
+    }
+
+    const icons = ['🌙', '💗', '⭐', '🎈', '🍬', '🌸', '🌙', '💗', '⭐', '🎈', '🍬', '🌸'];
+    let flipped = [], matches = 0;
+    function initGame() {
+        const grid = document.getElementById('gameGrid');
+        grid.innerHTML = '';
+        const shuffled = [...icons].sort(() => 0.5 - Math.random());
+        shuffled.forEach(icon => {
+            const t = document.createElement('div');
+            t.className = 'tile'; t.innerHTML = '?';
+            t.onclick = () => {
+                if (flipped.length < 2 && t.innerHTML === '?') {
+                    t.innerHTML = icon; t.style.background = 'white'; t.style.color = 'var(--pink-accent)';
+                    flipped.push({t, icon});
+                    if (flipped.length === 2) {
+                        if (flipped[0].icon === flipped[1].icon) {
+                            matches++; flipped = [];
+                            if (matches === 6) document.getElementById('gameNext').style.display = 'block';
+                        } else {
+                            setTimeout(() => {
+                                flipped.forEach(f => { f.t.innerHTML = '?'; f.t.style.background = 'var(--pink-accent)'; f.t.style.color = 'white'; });
+                                flipped = [];
+                            }, 600);
+                        }
+                    }
+                }
+            };
+            grid.appendChild(t);
         });
+    }
 
-        function showLove() {
-            document.getElementById('initial-screen').style.display = 'none';
-            document.getElementById('success-content').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+    function createPetals() {
+        for(let i=0; i<25; i++) {
+            let p = document.createElement('div');
+            p.className = 'petal';
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.width = p.style.height = Math.random() * 15 + 10 + 'px';
+            p.style.animationDuration = Math.random() * 3 + 3 + 's';
+            p.style.animationDelay = Math.random() * 5 + 's';
+            document.body.appendChild(p);
         }
-
-        function toggleEnvelope() { document.getElementById('envWrapper').classList.toggle('open'); }
-
-        function revealMem(card) {
-            card.querySelector('span').style.display = 'none';
-            card.querySelector('img').style.display = 'block';
-            card.querySelector('.memory-cap').style.display = 'block';
-            card.style.background = 'white';
-        }
-        
-        let no2Tries = 0;
-        document.getElementById('noBtn2').addEventListener('mouseover', function() {
-            if (no2Tries < 4) {
-                this.style.position = 'fixed';
-                this.style.left = Math.random() * 80 + '%';
-                this.style.top = Math.random() * 80 + '%';
-                no2Tries++;
-            }
-        });
-
-        function handleActuallyNo() {
-            if (no2Tries >= 4) {
-                document.getElementById('too-late-card').style.display = 'block';
-                document.getElementById('change-mind-container').style.display = 'none';
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
