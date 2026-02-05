@@ -174,7 +174,7 @@
     </style>
 </head>
 <body>
-
+<audio id="player" src=""></audio>
 <div class="phone-emulator">
 
     <div id="s1" class="screen active">
@@ -266,34 +266,27 @@
     </div>
 
     <div id="sPlaylist" class="screen">
-        <h1 style="text-align: center; font-size: 1.8rem; margin-top: 10px;">Songs That Feel Like<br>Valentine's Day</h1>
-        <div class="cassette playing" style="background: var(--cassette-cream);">
-            <div style="font-size: 10px; align-self: flex-start; margin-left: 20px; color: #888;">SIDE A</div>
+        <h1 style="font-size: 1.8rem;">Our Songs 🎵</h1>
+        
+        <div id="c1" class="cassette" style="background: var(--cassette-cream);">
             <div class="cassette-label">
-                <div style="font-weight: bold; font-size: 1.1rem;">Waalian</div>
-                <div style="font-size: 12px; color: var(--pink-accent);">Some feelings feel calm and deep ✨</div>
+                <strong>Waalian</strong><br>
+                <small style="color:var(--pink-accent)">Some feelings feel calm and deep ✨</small>
             </div>
             <div class="cassette-reels"><div class="reel"></div><div class="reel"></div></div>
-            <div style="display: flex; width: 100%; justify-content: space-around; align-items: center;">
-                <span style="font-size: 12px; color: #888;">0:00</span>
-                <div class="play-btn-circle">||</div>
-                <span style="font-size: 18px;">❤️</span>
-            </div>
+            <div class="play-btn-circle" onclick="togglePlay('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', 'c1')">▶</div>
         </div>
-        <div class="cassette" style="background: var(--cassette-green);">
-            <div style="font-size: 10px; align-self: flex-start; margin-left: 20px; color: #888;">SIDE A</div>
+
+        <div id="c2" class="cassette" style="background: var(--cassette-green);">
             <div class="cassette-label">
-                <div style="font-weight: bold; font-size: 1.1rem;">Lag Jaa Gale</div>
-                <div style="font-size: 12px; color: var(--pink-accent);">Because closeness matters 🤍</div>
+                <strong>Lag Jaa Gale</strong><br>
+                <small style="color:var(--pink-accent)">Because closeness matters 🤍</small>
             </div>
             <div class="cassette-reels"><div class="reel"></div><div class="reel"></div></div>
-            <div style="display: flex; width: 100%; justify-content: space-around; align-items: center;">
-                <span style="font-size: 12px; color: #888;">0:00</span>
-                <div class="play-btn-circle" style="padding-left: 4px;">▶</div>
-                <span style="font-size: 18px;">❤️</span>
-            </div>
+            <div class="play-btn-circle" onclick="togglePlay('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', 'c2')">▶</div>
         </div>
-        <button class="btn-main" onclick="next(5)">Next: A Fun Game ➔</button>
+
+        <button class="btn-main" onclick="stopMusic(); next(5)">Next: A Fun Game ➔</button>
     </div>
 
     <div id="s5" class="screen">
@@ -363,11 +356,15 @@
                 
                 <hr style="border: 0; border-top: 1px solid #eee;">
                 
-                <p><strong>• Division of Assets:</strong> 100% ownership of the Respondent’s heart remains exclusively with <strong>BOGUS BACCHHAA</strong>.</p>
+                <p><b>1. Division of Assets:</b> The Respondent’s Heart: 100% legal ownership remains exclusively with <i>BOGUS BACCHHAA</i>. No third parties permitted.</p>
                 
-                <p><strong>• Spousal Support:</strong> Mandatory unlimited forehead kisses and 2-hour daily sessions for listening to overthinking thoughts.</p>
+                <p><b>2. Spousal Maintenance:</b> Respondent is bound to provide unlimited forehead kisses and 2-hour daily sessions for listening to "overthinking thoughts."</p>
                 
-                <p><strong>• Restraining Order:</strong> All other girls are legally confined to the "Strictly Professional Zone."</p>
+                <p><b>3. No-Walking Away Clause:</b> Petitioner (BOGUS) is strictly prohibited from distancing herself. Must remain within 1-meter "Hugging Distance."</p>
+                
+                <p><b>4. Permanent Restraining Order:</b> Emotional restraining order on all other girls. Confined to "Strictly Professional Zone."</p>
+                
+                <p><b>5. Final Decree:</b> He solemnly promises that he is, and will always be, his only <i>Pagulu Punguu</i>.</p>
                 
                 <p><strong>• The Addendum:</strong> BOGUS BACCHHAA is ordered to provide a daily quota of “Kuttu videos” and “Good Morning Pictures.”</p>
                 
@@ -473,6 +470,44 @@
             document.body.appendChild(p);
         }
     }
+
+    let currentPlayingId = null;
+const audio = document.getElementById('player');
+
+function togglePlay(url, id) {
+    const cassette = document.getElementById(id);
+    const btn = cassette.querySelector('.play-btn-circle');
+
+    if (audio.src !== url) {
+        // Play new song
+        if (currentPlayingId) stopMusic();
+        audio.src = url;
+        audio.play();
+        cassette.classList.add('playing');
+        btn.innerHTML = "||";
+        currentPlayingId = id;
+    } else {
+        // Toggle same song
+        if (audio.paused) {
+            audio.play();
+            cassette.classList.add('playing');
+            btn.innerHTML = "||";
+        } else {
+            audio.pause();
+            cassette.classList.remove('playing');
+            btn.innerHTML = "▶";
+        }
+    }
+}
+
+function stopMusic() {
+    audio.pause();
+    document.querySelectorAll('.cassette').forEach(c => {
+        c.classList.remove('playing');
+        c.querySelector('.play-btn-circle').innerHTML = "▶";
+    });
+    currentPlayingId = null;
+}
 </script>
 </body>
 </html>
